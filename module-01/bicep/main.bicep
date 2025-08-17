@@ -22,14 +22,20 @@ param vnetName string
 @description('The name of the subnet.')
 param subnetName string
 
+@description('Name of the Storage Account. It must be unique and between 3 and 24 characters in length and can contain only lowercase letters and numbers.')
+@minLength(3)
+@maxLength(24)
+param storageAccountName string = toLower('sa${uniqueString(resourceGroup().id)}')
+
 // Variables
 var nicName = '${vmName}-nic'
 var publicIpName = '${vmName}-pip'
+var fakeApiKey = 'f0b5f11e-111b-4bba-b7e2-51dc7e4f9a6c' // Fake API key for demonstration purposes
 
 // Resources
 
 // Virtual Network
-resource vnet 'Microsoft.Network/virtualNetworks@2021-02-01' = {
+resource vnet 'Microsoft.Network/virtualNetworks@2024-07-01' = {
   name: vnetName
   location: location
   properties: {
@@ -50,7 +56,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-02-01' = {
 }
 
 // Public IP
-resource publicIp 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
+resource publicIp 'Microsoft.Network/publicIPAddresses@2024-07-01' = {
   name: publicIpName
   location: location
   properties: {
@@ -59,7 +65,7 @@ resource publicIp 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
 }
 
 // Network Interface
-resource nic 'Microsoft.Network/networkInterfaces@2021-02-01' = {
+resource nic 'Microsoft.Network/networkInterfaces@2024-07-01' = {
   name: nicName
   location: location
   properties: {
@@ -80,7 +86,7 @@ resource nic 'Microsoft.Network/networkInterfaces@2021-02-01' = {
 }
 
 // Virtual Machine
-resource vm 'Microsoft.Compute/virtualMachines@2021-03-01' = {
+resource vm 'Microsoft.Compute/virtualMachines@2024-11-01' = {
   name: vmName
   location: location
   properties: {
@@ -99,7 +105,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-03-01' = {
       imageReference: {
         publisher: 'Canonical'
         offer: 'UbuntuServer'
-        sku: '18.04-LTS'
+        sku: '22.04-LTS'
         version: 'latest'
       }
       osDisk: {
@@ -118,5 +124,16 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-03-01' = {
   }
 }
 
+// Storage Account
+resource storageAccount 'Microsoft.Storage/storageAccounts@2025-01-01' = {
+  name: storageAccountName
+  location: location
+  kind: 'StorageV2'
+  sku: {
+    name: 'Standard_LRS'
+  }
+}
+
+// Outputs
 output vmId string = vm.id
 output publicIpAddress string = publicIp.properties.ipAddress
