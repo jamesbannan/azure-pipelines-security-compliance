@@ -4,6 +4,6 @@ param adminUsername = 'azureuser' // This should be secured using Azure Key Vaul
 param adminPassword = 'P@ssw0rd1234!' // This should be secured using Azure Key Vault or similar methods in production
 
 param vmName = 'module-01-vm'
-param vmSize = 'Standard_DS1_v2'
+param vmSize = 'Standard_B2s'
 param vnetName = 'lab-vnet'
 param subnetName = 'module-01-subnet'
