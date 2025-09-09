@@ -30,7 +30,6 @@ param storageAccountName string = toLower('sa${uniqueString(resourceGroup().id)}
 // Variables
 var nicName = '${vmName}-nic'
 var publicIpName = '${vmName}-pip'
-var fakeApiKey = 'f0b5f11e-111b-4bba-b7e2-51dc7e4f9a6c' // Fake API key for demonstration purposes
 
 // Resources
 
