@@ -103,9 +103,9 @@ resource vm 'Microsoft.Compute/virtualMachines@2024-11-01' = {
     }
     storageProfile: {
       imageReference: {
-        publisher: 'Canonical'
-        offer: 'UbuntuServer'
-        sku: '22.04-LTS'
+        publisher: 'canonical'
+        offer: '0001-com-ubuntu-server-jammy'
+        sku: '22_04-lts-gen2'
         version: 'latest'
       }
       osDisk: {
@@ -136,4 +136,3 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2025-01-01' = {
 
 // Outputs
 output vmId string = vm.id
-output publicIpAddress string = publicIp.properties.ipAddress
