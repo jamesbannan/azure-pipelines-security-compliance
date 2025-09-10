@@ -41,3 +41,5 @@ resource webApp 'Microsoft.Web/sites@2021-02-01' = {
     type: 'SystemAssigned'
   }
 }
+
+output webAppName string = webApp.name
