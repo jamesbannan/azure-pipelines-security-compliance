@@ -30,6 +30,7 @@ param storageAccountName string = toLower('sa${uniqueString(resourceGroup().id)}
 // Variables
 var nicName = '${vmName}-nic'
 var publicIpName = '${vmName}-pip'
+var fakeApiKey = 'f0b5f11e-111b-4bba-b7e2-51dc7e4f9a6c' // Fake API key for demonstration purposes
 
 // Resources
 
@@ -102,9 +103,9 @@ resource vm 'Microsoft.Compute/virtualMachines@2024-11-01' = {
     }
     storageProfile: {
       imageReference: {
-        publisher: 'Canonical'
-        offer: 'UbuntuServer'
-        sku: '22.04-LTS'
+        publisher: 'canonical'
+        offer: '0001-com-ubuntu-server-jammy'
+        sku: '22_04-lts-gen2'
         version: 'latest'
       }
       osDisk: {
@@ -135,4 +136,3 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2025-01-01' = {
 
 // Outputs
 output vmId string = vm.id
-output publicIpAddress string = publicIp.properties.ipAddress
