@@ -9,7 +9,7 @@ param location string = resourceGroup().location
 param sku string = 'F1'
 
 @description('The Runtime stack of current web app')
-param linuxFxVersion string = 'DOTNETCORE|3.0'
+param linuxFxVersion string = 'DOTNETCORE|8.0'
 
 var appServicePlanPortalName = 'AppServicePlan-${webAppName}'
 
